@@ -1,0 +1,39 @@
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.content-card {
+  width: min(640px, 100%);
+  padding: 40px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid #d9e2ec;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f766e;
+}
+
+.description {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #475569;
+}
+
+@media (max-width: 640px) {
+  .content-card {
+    padding: 28px;
+    border-radius: 16px;
+  }
+}
