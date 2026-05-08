@@ -43,6 +43,25 @@ class AIDraftLogSerializer(serializers.ModelSerializer):
         return True
 
 
+class CreateRequestNoteSerializer(serializers.Serializer):
+    author_name = serializers.CharField(max_length=255)
+    note_text = serializers.CharField()
+
+    def validate_note_text(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("This field may not be blank.")
+        return value.strip()
+
+
+class UpdateRequestStatusSerializer(serializers.Serializer):
+    status = serializers.ChoiceField(choices=ServiceRequest.Status.choices)
+    changed_by = serializers.CharField(max_length=255)
+
+
+class GenerateDraftSerializer(serializers.Serializer):
+    generated_by = serializers.CharField(max_length=255)
+
+
 class ServiceRequestListSerializer(serializers.ModelSerializer):
     owner_name = serializers.CharField(source="owner.name", read_only=True)
 
