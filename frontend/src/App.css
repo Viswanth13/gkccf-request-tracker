@@ -353,10 +353,16 @@
 
 .request-table tbody tr {
   background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .request-table tbody tr:hover {
   background: rgba(240, 253, 250, 0.9);
+}
+
+.request-table tbody tr.is-selected {
+  background: rgba(204, 251, 241, 0.95);
 }
 
 .request-table tbody tr:last-child td {
@@ -450,6 +456,218 @@
   }
 }
 
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  background: rgba(15, 23, 42, 0.35);
+  z-index: 30;
+}
+
+.detail-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(560px, 100vw);
+  height: 100vh;
+  padding: 24px;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #fbffff 0%, #f8fafc 100%);
+  border-left: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: -20px 0 50px rgba(15, 23, 42, 0.16);
+  z-index: 40;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.drawer-request-id {
+  margin-bottom: 8px;
+  color: #0f766e;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.drawer-title {
+  margin: 0 0 8px;
+  font-size: 1.8rem;
+  line-height: 1.1;
+}
+
+.drawer-subtitle {
+  color: #64748b;
+}
+
+.drawer-close-button {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 14px;
+  padding: 10px 14px;
+  background: #ffffff;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.drawer-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.drawer-section-title {
+  margin: 0 0 14px;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.warning-banner {
+  border-radius: 18px;
+  padding: 16px 18px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+}
+
+.warning-title {
+  margin-bottom: 6px;
+  color: #c2410c;
+  font-weight: 700;
+}
+
+.warning-copy {
+  color: #9a3412;
+  line-height: 1.6;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.detail-field {
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.detail-label {
+  margin-bottom: 8px;
+  color: #64748b;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.detail-value {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.drawer-description {
+  color: #334155;
+  line-height: 1.75;
+}
+
+.timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 12px;
+}
+
+.timeline-marker {
+  width: 12px;
+  height: 12px;
+  margin-top: 6px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0f766e, #0284c7);
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.08);
+}
+
+.timeline-content {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.timeline-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.timeline-author {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.timeline-time {
+  color: #64748b;
+  font-size: 0.86rem;
+}
+
+.timeline-body {
+  color: #334155;
+  line-height: 1.7;
+}
+
+.timeline-tag {
+  margin-top: 8px;
+  color: #0f766e;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.ai-draft-card,
+.drawer-empty-block {
+  border-radius: 18px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+}
+
+.ai-draft-warning {
+  margin-bottom: 12px;
+  color: #b45309;
+  font-weight: 700;
+}
+
+.ai-draft-text {
+  margin: 0;
+  white-space: pre-wrap;
+  font: inherit;
+  color: #334155;
+  line-height: 1.7;
+}
+
+.drawer-empty-title {
+  margin-bottom: 8px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.drawer-empty-copy {
+  color: #64748b;
+  line-height: 1.7;
+}
+
 @media (max-width: 1180px) {
   .dashboard-layout {
     grid-template-columns: 1fr;
@@ -480,6 +698,10 @@
   .topbar-actions {
     justify-content: space-between;
   }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
@@ -499,5 +721,15 @@
 
   .result-pill {
     align-self: flex-start;
+  }
+
+  .detail-drawer {
+    padding: 18px;
+  }
+
+  .drawer-header,
+  .timeline-meta {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

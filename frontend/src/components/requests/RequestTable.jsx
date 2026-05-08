@@ -12,7 +12,7 @@ function formatUpdatedAt(value) {
   }).format(date)
 }
 
-function RequestTable({ requests }) {
+function RequestTable({ requests, selectedRequestId, onRowSelect }) {
   return (
     <div className="table-shell">
       <table className="request-table">
@@ -31,7 +31,11 @@ function RequestTable({ requests }) {
         </thead>
         <tbody>
           {requests.map((request) => (
-            <tr key={request.id}>
+            <tr
+              key={request.id}
+              className={selectedRequestId === request.id ? 'is-selected' : ''}
+              onClick={() => onRowSelect(request.id)}
+            >
               <td className="table-primary">{request.request_id}</td>
               <td>{request.requester_name}</td>
               <td>{request.requester_type}</td>

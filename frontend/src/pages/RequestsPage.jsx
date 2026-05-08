@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { getRequests } from '../api/requestsApi'
+import { getRequestDetail, getRequests } from '../api/requestsApi'
 import EmptyState from '../components/common/EmptyState'
 import LoadingState from '../components/common/LoadingState'
 import CategoryFilters from '../components/dashboard/CategoryFilters'
 import MetricCard from '../components/dashboard/MetricCard'
 import Sidebar from '../components/layout/Sidebar'
 import Topbar from '../components/layout/Topbar'
+import RequestDetailDrawer from '../components/requests/RequestDetailDrawer'
 import RequestTable from '../components/requests/RequestTable'
 
 function isCompletedThisWeek(request) {
@@ -70,6 +71,11 @@ function RequestsPage() {
   const [error, setError] = useState('')
   const [searchText, setSearchText] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All Categories')
+  const [selectedRequestId, setSelectedRequestId] = useState(null)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [requestDetail, setRequestDetail] = useState(null)
+  const [detailLoading, setDetailLoading] = useState(false)
+  const [detailError, setDetailError] = useState('')
 
   useEffect(() => {
     let ignore = false
@@ -104,6 +110,54 @@ function RequestsPage() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!isDrawerOpen || !selectedRequestId) {
+      return undefined
+    }
+
+    let ignore = false
+
+    async function loadRequestDetail() {
+      try {
+        setDetailLoading(true)
+        setDetailError('')
+        const data = await getRequestDetail(selectedRequestId)
+
+        if (!ignore) {
+          setRequestDetail(data)
+        }
+      } catch (loadError) {
+        if (!ignore) {
+          setDetailError(
+            loadError.message ||
+              'Unable to load request details. Please confirm the backend is running.',
+          )
+        }
+      } finally {
+        if (!ignore) {
+          setDetailLoading(false)
+        }
+      }
+    }
+
+    loadRequestDetail()
+
+    return () => {
+      ignore = true
+    }
+  }, [isDrawerOpen, selectedRequestId])
+
+  function handleRowSelect(requestId) {
+    setSelectedRequestId(requestId)
+    setRequestDetail(null)
+    setDetailError('')
+    setIsDrawerOpen(true)
+  }
+
+  function handleCloseDrawer() {
+    setIsDrawerOpen(false)
+  }
+
   const filteredRequests = requests.filter((request) => {
     const matchesCategory =
       selectedCategory === 'All Categories' || request.category === selectedCategory
@@ -118,7 +172,13 @@ function RequestsPage() {
   const completedThisWeek = requests.filter(isCompletedThisWeek).length
   const averageResponseTime = formatAverageResponseTime(requests)
 
-  let content = <RequestTable requests={filteredRequests} />
+  let content = (
+    <RequestTable
+      requests={filteredRequests}
+      selectedRequestId={selectedRequestId}
+      onRowSelect={handleRowSelect}
+    />
+  )
 
   if (loading) {
     content = <LoadingState message="Pulling service requests from the backend API." />
@@ -139,7 +199,7 @@ function RequestsPage() {
   }
 
   return (
-    <div className="dashboard-layout">
+    <div className={`dashboard-layout${isDrawerOpen ? ' has-drawer-open' : ''}`}>
       <Sidebar />
 
       <div className="dashboard-panel">
@@ -200,6 +260,14 @@ function RequestsPage() {
           </section>
         </main>
       </div>
+
+      <RequestDetailDrawer
+        isOpen={isDrawerOpen}
+        requestDetail={requestDetail}
+        loading={detailLoading}
+        error={detailError}
+        onClose={handleCloseDrawer}
+      />
     </div>
   )
 }
