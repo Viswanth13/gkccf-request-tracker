@@ -77,74 +77,57 @@ function RequestsPage() {
   const [detailLoading, setDetailLoading] = useState(false)
   const [detailError, setDetailError] = useState('')
 
-  useEffect(() => {
-    let ignore = false
-
-    async function loadRequests() {
-      try {
+  async function refreshRequests({ showLoading = false } = {}) {
+    try {
+      if (showLoading) {
         setLoading(true)
-        setError('')
-        const data = await getRequests()
+      }
 
-        if (!ignore) {
-          setRequests(data)
-        }
-      } catch (loadError) {
-        if (!ignore) {
-          setError(
-            loadError.message ||
-              'Unable to load requests. Please confirm the backend is running.',
-          )
-        }
-      } finally {
-        if (!ignore) {
-          setLoading(false)
-        }
+      setError('')
+      const data = await getRequests()
+      setRequests(data)
+    } catch (loadError) {
+      setError(
+        loadError.message ||
+          'Unable to load requests. Please confirm the backend is running.',
+      )
+    } finally {
+      if (showLoading) {
+        setLoading(false)
       }
     }
+  }
 
-    loadRequests()
-
-    return () => {
-      ignore = true
+  async function refreshRequestDetail(requestId = selectedRequestId) {
+    if (!requestId) {
+      return
     }
+
+    try {
+      setDetailLoading(true)
+      setDetailError('')
+      const data = await getRequestDetail(requestId)
+      setRequestDetail(data)
+    } catch (loadError) {
+      setDetailError(
+        loadError.message ||
+          'Unable to load request details. Please confirm the backend is running.',
+      )
+    } finally {
+      setDetailLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    refreshRequests({ showLoading: true })
   }, [])
 
   useEffect(() => {
     if (!isDrawerOpen || !selectedRequestId) {
-      return undefined
+      return
     }
 
-    let ignore = false
-
-    async function loadRequestDetail() {
-      try {
-        setDetailLoading(true)
-        setDetailError('')
-        const data = await getRequestDetail(selectedRequestId)
-
-        if (!ignore) {
-          setRequestDetail(data)
-        }
-      } catch (loadError) {
-        if (!ignore) {
-          setDetailError(
-            loadError.message ||
-              'Unable to load request details. Please confirm the backend is running.',
-          )
-        }
-      } finally {
-        if (!ignore) {
-          setDetailLoading(false)
-        }
-      }
-    }
-
-    loadRequestDetail()
-
-    return () => {
-      ignore = true
-    }
+    refreshRequestDetail(selectedRequestId)
   }, [isDrawerOpen, selectedRequestId])
 
   function handleRowSelect(requestId) {
@@ -267,6 +250,8 @@ function RequestsPage() {
         loading={detailLoading}
         error={detailError}
         onClose={handleCloseDrawer}
+        onRefreshRequestDetail={refreshRequestDetail}
+        onRefreshRequests={refreshRequests}
       />
     </div>
   )
