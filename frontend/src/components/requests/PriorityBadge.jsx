@@ -1,3 +1,5 @@
+import React from 'react'
+
 function PriorityBadge({ priority }) {
   const priorityClassName = priority.toLowerCase()
 

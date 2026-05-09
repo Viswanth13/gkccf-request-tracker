@@ -1,3 +1,5 @@
+import React from 'react'
+
 function StatusBadge({ status }) {
   const statusClassName = status
     .toLowerCase()

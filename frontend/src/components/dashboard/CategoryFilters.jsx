@@ -1,3 +1,5 @@
+import React from 'react'
+
 const categories = [
   'All Categories',
   'Grant Help',

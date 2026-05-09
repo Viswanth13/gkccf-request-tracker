@@ -1,3 +1,5 @@
+import React from 'react'
+
 function Topbar({ searchText, onSearchChange }) {
   return (
     <header className="topbar">
@@ -16,6 +18,7 @@ function Topbar({ searchText, onSearchChange }) {
 
       <div className="topbar-actions">
         <button type="button" className="notification-button" aria-label="Notifications">
+          <span className="notification-label">Notifications</span>
           <span className="notification-badge" />
         </button>
 

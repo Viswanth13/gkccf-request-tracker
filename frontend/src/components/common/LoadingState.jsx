@@ -1,3 +1,5 @@
+import React from 'react'
+
 function LoadingState({ message = 'Loading requests...' }) {
   return (
     <div className="feedback-card">

@@ -1,3 +1,5 @@
+import React from 'react'
+
 function formatTimestamp(value) {
   const date = new Date(value)
 

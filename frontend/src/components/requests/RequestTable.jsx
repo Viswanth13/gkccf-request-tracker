@@ -1,3 +1,4 @@
+import React from 'react'
 import PriorityBadge from "./PriorityBadge"
 import StatusBadge from "./StatusBadge"
 

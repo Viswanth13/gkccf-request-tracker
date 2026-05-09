@@ -1,3 +1,5 @@
+import React from 'react'
+
 function EmptyState({ title, message }) {
   return (
     <div className="feedback-card">

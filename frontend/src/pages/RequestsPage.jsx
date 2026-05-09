@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getRequestDetail, getRequests } from '../api/requestsApi'
 import EmptyState from '../components/common/EmptyState'
 import LoadingState from '../components/common/LoadingState'
