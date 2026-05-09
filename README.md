@@ -38,6 +38,10 @@ GKCCF teams often need a simple way to manage grant help requests, fund question
   - mock AI draft generation action
 - Backend and frontend test coverage for core MVP behavior
 
+## Demo Video
+
+[Demo Video](https://youtu.be/Tm39tSoe2Dg)
+
 ## Repository Structure
 
 ```text
@@ -59,9 +63,6 @@ python manage.py seed_demo_data
 python manage.py runserver
 ```
 
-Backend runs at:
-
-- [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 ### Frontend Setup
 
@@ -73,9 +74,6 @@ npm install
 npm run dev
 ```
 
-Frontend runs at:
-
-- [http://127.0.0.1:5173/](http://127.0.0.1:5173/)
 
 ## Useful Commands
 
@@ -173,8 +171,5 @@ Demo seed data also includes:
 
 Product requirements live in:
 
-- [docs/PRD.md](C:\Users\VISWANTH\Desktop\Placement\US\GKCCF\GKCCF_MVP\gkccf-request-tracker\docs\PRD.md)
+- [docs/PRD.md]
 
-For a guided presentation outline, see:
-
-- [docs/demo-script.md](C:\Users\VISWANTH\Desktop\Placement\US\GKCCF\GKCCF_MVP\gkccf-request-tracker\docs\demo-script.md)
